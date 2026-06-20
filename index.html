@@ -1,0 +1,600 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Il passato prossimo</title>
+  <meta name="description" content="意大利语 A2 近过去时在线测试：先完成填空，再发现规则。">
+  <style>
+    :root {
+      --bg: #fffaf1;
+      --card: #ffffff;
+      --ink: #252525;
+      --muted: #6d6a63;
+      --line: #eadfce;
+      --soft: #f6efe3;
+      --accent: #b4532a;
+      --accent-strong: #873f22;
+      --green: #16754a;
+      --red: #b42318;
+      --blue: #276a8f;
+      --shadow: 0 14px 34px rgba(68, 49, 28, 0.12);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background:
+        linear-gradient(150deg, rgba(180, 83, 42, 0.11), transparent 34%),
+        linear-gradient(330deg, rgba(39, 106, 143, 0.09), transparent 32%),
+        var(--bg);
+      color: var(--ink);
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    button {
+      border: 0;
+      cursor: pointer;
+    }
+
+    .page {
+      width: min(100% - 28px, 880px);
+      margin: 0 auto;
+      padding: 24px 0 52px;
+    }
+
+    .hero {
+      padding: 26px 0 18px;
+    }
+
+    .eyebrow {
+      margin: 0 0 10px;
+      color: var(--accent-strong);
+      font-size: 0.82rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    h1,
+    h2,
+    h3 {
+      line-height: 1.2;
+      letter-spacing: 0;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2.2rem, 11vw, 4.4rem);
+    }
+
+    .subtitle {
+      margin: 10px 0 12px;
+      color: #47392e;
+      font-size: clamp(1.16rem, 4vw, 1.7rem);
+      font-weight: 750;
+    }
+
+    .zh-note {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.98rem;
+    }
+
+    .panel {
+      background: rgba(255, 255, 255, 0.94);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+      padding: 18px;
+      margin-top: 18px;
+    }
+
+    .panel-header {
+      display: grid;
+      gap: 8px;
+      margin-bottom: 18px;
+    }
+
+    .panel h2 {
+      margin: 0;
+      font-size: clamp(1.45rem, 5vw, 2rem);
+    }
+
+    .italian {
+      color: #2a2a2a;
+    }
+
+    .chinese {
+      color: var(--muted);
+      border-left: 4px solid #e8c8b4;
+      padding-left: 12px;
+      background: linear-gradient(90deg, rgba(232, 200, 180, 0.24), transparent);
+    }
+
+    .question-list {
+      display: grid;
+      gap: 16px;
+    }
+
+    .question {
+      border: 1px solid var(--line);
+      background: #fffdf9;
+      border-radius: 12px;
+      padding: 15px;
+    }
+
+    .question-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .number {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      background: var(--soft);
+      color: var(--accent-strong);
+      font-weight: 850;
+      flex: 0 0 auto;
+    }
+
+    .verb {
+      color: var(--blue);
+      font-weight: 800;
+      font-size: 0.95rem;
+    }
+
+    .sentence {
+      margin: 8px 0 12px;
+      color: #222;
+      font-size: 1.06rem;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      min-height: 50px;
+      border: 1px solid #d8c8b8;
+      border-radius: 10px;
+      background: #fff;
+      color: var(--ink);
+      padding: 12px 13px;
+      outline: none;
+      font-size: 1.02rem;
+    }
+
+    input[type="text"]:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 4px rgba(180, 83, 42, 0.13);
+    }
+
+    .result {
+      margin-top: 10px;
+      min-height: 24px;
+      font-weight: 750;
+    }
+
+    .result.ok {
+      color: var(--green);
+    }
+
+    .result.bad {
+      color: var(--red);
+    }
+
+    .actions {
+      position: sticky;
+      bottom: 0;
+      z-index: 4;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      background: rgba(255, 250, 241, 0.94);
+      border-top: 1px solid var(--line);
+      padding: 12px 0 8px;
+      margin-top: 18px;
+      backdrop-filter: blur(10px);
+    }
+
+    .btn {
+      min-height: 52px;
+      border-radius: 10px;
+      padding: 0 16px;
+      font-weight: 850;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: white;
+      box-shadow: 0 10px 22px rgba(180, 83, 42, 0.22);
+    }
+
+    .btn-secondary {
+      background: #fff;
+      color: var(--accent-strong);
+      border: 1px solid #d8c8b8;
+    }
+
+    .score-box {
+      display: none;
+      margin-top: 14px;
+      padding: 15px;
+      border-radius: 12px;
+      background: #f3f9f5;
+      border: 1px solid #cce8d7;
+      color: var(--green);
+      font-weight: 850;
+      font-size: 1.2rem;
+      text-align: center;
+    }
+
+    .score-box.show {
+      display: block;
+    }
+
+    .rule-card {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 15px;
+      background: #fffdf9;
+      margin-bottom: 14px;
+    }
+
+    .rule-card h3 {
+      margin: 0 0 8px;
+      color: var(--accent-strong);
+      font-size: 1.08rem;
+    }
+
+    .options {
+      display: grid;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .option {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-height: 48px;
+      border: 1px solid #d8c8b8;
+      border-radius: 10px;
+      padding: 10px 12px;
+      background: white;
+    }
+
+    .option input {
+      width: 20px;
+      height: 20px;
+      flex: 0 0 auto;
+      accent-color: var(--accent);
+    }
+
+    .examples {
+      margin: 12px 0 0;
+      padding: 12px;
+      border-radius: 10px;
+      background: var(--soft);
+      color: #4f453b;
+      font-size: 0.95rem;
+    }
+
+    .ending-grid {
+      display: grid;
+      gap: 12px;
+    }
+
+    .summary {
+      display: none;
+      border: 1px solid #d8c8b8;
+      border-radius: 12px;
+      background: #fff8ed;
+      padding: 16px;
+      margin-top: 16px;
+    }
+
+    .summary.show {
+      display: block;
+    }
+
+    .summary h3 {
+      margin: 0 0 10px;
+    }
+
+    .summary ul {
+      padding-left: 1.2rem;
+      margin: 0;
+    }
+
+    .highlight {
+      color: var(--accent-strong);
+      background: #ffe2cd;
+      border-radius: 7px;
+      padding: 1px 6px;
+      font-weight: 850;
+    }
+
+    [hidden] {
+      display: none !important;
+    }
+
+    @media (min-width: 720px) {
+      .page {
+        padding-top: 36px;
+      }
+
+      .panel {
+        padding: 26px;
+      }
+
+      .question {
+        padding: 18px;
+      }
+
+      .ending-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .actions {
+        position: static;
+        grid-template-columns: auto auto;
+        justify-content: start;
+        background: transparent;
+        border-top: 0;
+        padding: 0;
+      }
+
+      .btn {
+        min-width: 168px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="hero">
+      <p class="eyebrow">好好意语 A2</p>
+      <h1>Il passato prossimo</h1>
+      <p class="subtitle">Prima fai il test, poi scopri la regola.</p>
+      <p class="zh-note">先完成16道填空题。提交后，系统自动批改、显示分数和正确答案，然后解锁规则总结部分。</p>
+    </header>
+
+    <section class="panel" id="part1Section" aria-labelledby="part1Title">
+      <div class="panel-header">
+        <h2 id="part1Title">Parte 1 – Completa al passato prossimo</h2>
+        <p class="chinese">把括号里的动词变成近过去时。请写出完整形式：<strong>助动词 + 过去分词</strong>。每道题只填写空缺部分。</p>
+      </div>
+      <form id="part1Form" novalidate>
+        <div class="question-list" id="part1List"></div>
+        <div class="score-box" id="part1Score" aria-live="polite"></div>
+        <div class="actions">
+          <button class="btn btn-primary" type="submit">提交答案</button>
+          <button class="btn btn-secondary" type="button" id="restartBtn">重新开始</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="panel" id="part2Section" aria-labelledby="part2Title" hidden>
+      <div class="panel-header">
+        <h2 id="part2Title">Parte 2 – Completa la regola</h2>
+        <p class="chinese">根据刚才做过的题，完成下面的规则。</p>
+      </div>
+      <form id="part2Form" novalidate>
+        <div id="ruleList"></div>
+        <h3>词尾填空</h3>
+        <div class="ending-grid" id="endingList"></div>
+        <div class="score-box" id="part2Score" aria-live="polite"></div>
+        <div class="actions">
+          <button class="btn btn-primary" type="submit">提交规则</button>
+          <button class="btn btn-secondary" type="button" id="restartBtn2">重新开始</button>
+        </div>
+      </form>
+      <div class="summary" id="completeRule">
+        <h3>Regola completa</h3>
+        <p>通常，当我们把动词变成近过去时时：</p>
+        <ul>
+          <li>有直接宾语，或者表示“做了某件事情”的动词，一般使用助动词 <span class="highlight">avere</span>。</li>
+          <li>部分表示移动、状态变化的动词，以及所有自反动词，一般使用助动词 <span class="highlight">essere</span>。</li>
+          <li>使用 <span class="highlight">essere</span> 时，过去分词要和 <span class="highlight">il soggetto（主语）</span> 的性、数保持一致。</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const partOneQuestions = [
+      { number: 1, verb: "venire", sentence: "Matteo ______ a Milano per frequentare l’università.", answer: "è venuto" },
+      { number: 2, verb: "incontrare", sentence: "All’università Matteo ______ Emma.", answer: "ha incontrato" },
+      { number: 3, verb: "sposarsi", sentence: "Matteo ed Emma ______ tre anni fa.", answer: "si sono sposati" },
+      { number: 4, verb: "lasciare", sentence: "La ragazza di Giovanni lo ______.", answer: "ha lasciato" },
+      { number: 5, verb: "cambiare", sentence: "Per questo motivo Giovanni ______ casa.", answer: "ha cambiato" },
+      { number: 6, verb: "laurearsi", sentence: "Alice ______ da poco in lettere.", answer: "si è laureata" },
+      { number: 7, verb: "cominciare", sentence: "Alice ______ a lavorare in un bar.", answer: "ha cominciato" },
+      { number: 8, verb: "suonare", sentence: "Ieri Giovanni ______ con la sua band.", answer: "ha suonato" },
+      { number: 9, verb: "andare", sentence: "Emma e Alice ______ a un concerto.", answer: "sono andate" },
+      { number: 10, verb: "fare", sentence: "Matteo ______ molte fotografie durante una sfilata.", answer: "ha fatto" },
+      { number: 11, verb: "arrivare", sentence: "Colin ______ a Milano da poco.", answer: "è arrivato" },
+      { number: 12, verb: "trasferirsi", sentence: "Colin ______ in una nuova casa.", answer: "si è trasferito" },
+      { number: 13, verb: "ospitare", sentence: "La famiglia di Sara ______ Colin l’anno scorso.", answer: "ha ospitato" },
+      { number: 14, verb: "essere", sentence: "Il concerto ______ molto bello.", answer: "è stato" },
+      { number: 15, verb: "cantare", sentence: "Sara e le sue amiche ______ dall’inizio alla fine al concerto.", answer: "hanno cantato" },
+      { number: 16, verb: "divertirsi", sentence: "Sara e le sue amiche ______ un sacco.", answer: "si sono divertite" }
+    ];
+
+    const ruleQuestions = [
+      { number: 1, name: "rule1", answer: "avere", prompt: "通常，当我们把动词变成近过去时时，有直接宾语，或者表示“做了某件事情”的动词，一般使用助动词：", options: ["avere", "essere"], examples: "Matteo ha incontrato Emma.<br>La famiglia di Sara ha ospitato Colin.<br>Matteo ha fatto molte fotografie." },
+      { number: 2, name: "rule2", answer: "essere", prompt: "部分表示移动、状态变化的动词，以及所有自反动词，一般使用助动词：", options: ["avere", "essere"], examples: "Matteo è venuto a Milano.<br>Colin è arrivato a Milano.<br>Colin si è trasferito.<br>Alice si è laureata.<br>Matteo ed Emma si sono sposati." },
+      { number: 3, name: "rule3", answer: "il soggetto（主语）", prompt: "使用 essere 时，过去分词要和谁的性、数保持一致？", options: ["il soggetto（主语）", "l’oggetto diretto（直接宾语）", "l’ausiliare（助动词）"], examples: "" }
+    ];
+
+    const endingQuestions = [
+      { number: 1, sentence: "Matteo è venut__.", answer: "o" },
+      { number: 2, sentence: "Alice si è laureat__.", answer: "a" },
+      { number: 3, sentence: "Emma e Alice sono andat__ a un concerto.", answer: "e" },
+      { number: 4, sentence: "Sara e le sue amiche si sono divertit__ un sacco.", answer: "e" }
+    ];
+
+    const part1List = document.querySelector("#part1List");
+    const part1Form = document.querySelector("#part1Form");
+    const part1Score = document.querySelector("#part1Score");
+    const part2Section = document.querySelector("#part2Section");
+    const ruleList = document.querySelector("#ruleList");
+    const endingList = document.querySelector("#endingList");
+    const part2Form = document.querySelector("#part2Form");
+    const part2Score = document.querySelector("#part2Score");
+    const completeRule = document.querySelector("#completeRule");
+    const restartButtons = [document.querySelector("#restartBtn"), document.querySelector("#restartBtn2")];
+
+    function normalizeAnswer(value) {
+      return value
+        .toLowerCase()
+        .trim()
+        .replace(/[’‘]/g, "'")
+        .replace(/\s+/g, " ")
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "");
+    }
+
+    function resultText(isCorrect, answer) {
+      return isCorrect ? "✓ Corretto" : `✗ Risposta corretta: ${answer}`;
+    }
+
+    function renderPartOne() {
+      part1List.innerHTML = partOneQuestions.map((item) => `
+        <div class="question" data-question="${item.number}">
+          <div class="question-top">
+            <span class="number">${item.number}</span>
+            <span class="verb">(${item.verb})</span>
+          </div>
+          <p class="sentence italian">${item.sentence}</p>
+          <input type="text" name="q${item.number}" autocomplete="off" autocapitalize="none" inputmode="text" aria-label="Risposta ${item.number}">
+          <div class="result" id="result-q${item.number}" aria-live="polite"></div>
+        </div>
+      `).join("");
+    }
+
+    function renderPartTwo() {
+      ruleList.innerHTML = ruleQuestions.map((item) => `
+        <div class="rule-card" data-rule="${item.number}">
+          <h3>Regola ${item.number}</h3>
+          <p class="chinese">${item.prompt}</p>
+          <div class="options">
+            ${item.options.map((option) => `
+              <label class="option">
+                <input type="radio" name="${item.name}" value="${option}">
+                <span>${option}</span>
+              </label>
+            `).join("")}
+          </div>
+          ${item.examples ? `<div class="examples italian">${item.examples}</div>` : ""}
+          <div class="result" id="result-${item.name}" aria-live="polite"></div>
+        </div>
+      `).join("");
+
+      endingList.innerHTML = endingQuestions.map((item) => `
+        <div class="question" data-ending="${item.number}">
+          <div class="question-top">
+            <span class="number">${item.number}</span>
+            <span class="verb">词尾</span>
+          </div>
+          <p class="sentence italian">${item.sentence}</p>
+          <input type="text" name="ending${item.number}" autocomplete="off" autocapitalize="none" inputmode="text" maxlength="2" aria-label="词尾 ${item.number}">
+          <div class="result" id="result-ending${item.number}" aria-live="polite"></div>
+        </div>
+      `).join("");
+    }
+
+    function gradePartOne(event) {
+      event.preventDefault();
+      let score = 0;
+
+      partOneQuestions.forEach((item) => {
+        const input = part1Form.elements[`q${item.number}`];
+        const result = document.querySelector(`#result-q${item.number}`);
+        const isCorrect = normalizeAnswer(input.value) === normalizeAnswer(item.answer);
+        if (isCorrect) score += 1;
+        result.textContent = resultText(isCorrect, item.answer);
+        result.className = `result ${isCorrect ? "ok" : "bad"}`;
+      });
+
+      part1Score.textContent = `${score}/16`;
+      part1Score.classList.add("show");
+      part2Section.hidden = false;
+      part2Section.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    function gradePartTwo(event) {
+      event.preventDefault();
+      let score = 0;
+
+      ruleQuestions.forEach((item) => {
+        const selected = part2Form.querySelector(`input[name="${item.name}"]:checked`);
+        const result = document.querySelector(`#result-${item.name}`);
+        const isCorrect = selected && normalizeAnswer(selected.value) === normalizeAnswer(item.answer);
+        if (isCorrect) score += 1;
+        result.textContent = resultText(Boolean(isCorrect), item.answer);
+        result.className = `result ${isCorrect ? "ok" : "bad"}`;
+      });
+
+      endingQuestions.forEach((item) => {
+        const input = part2Form.elements[`ending${item.number}`];
+        const result = document.querySelector(`#result-ending${item.number}`);
+        const isCorrect = normalizeAnswer(input.value) === normalizeAnswer(item.answer);
+        if (isCorrect) score += 1;
+        result.textContent = resultText(isCorrect, item.answer);
+        result.className = `result ${isCorrect ? "ok" : "bad"}`;
+      });
+
+      part2Score.textContent = `${score}/7`;
+      part2Score.classList.add("show");
+      completeRule.classList.add("show");
+      completeRule.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    function restart() {
+      part1Form.reset();
+      part2Form.reset();
+      document.querySelectorAll(".result").forEach((result) => {
+        result.textContent = "";
+        result.className = "result";
+      });
+      part1Score.textContent = "";
+      part1Score.classList.remove("show");
+      part2Score.textContent = "";
+      part2Score.classList.remove("show");
+      completeRule.classList.remove("show");
+      part2Section.hidden = true;
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    renderPartOne();
+    renderPartTwo();
+    part1Form.addEventListener("submit", gradePartOne);
+    part2Form.addEventListener("submit", gradePartTwo);
+    restartButtons.forEach((button) => button.addEventListener("click", restart));
+  </script>
+</body>
+</html>
