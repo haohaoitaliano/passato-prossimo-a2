@@ -424,7 +424,7 @@
         <div class="score-box" id="part1Score" aria-live="polite"></div>
         <div class="notice" id="part1Notice" aria-live="polite"></div>
         <div class="actions">
-          <button class="btn btn-primary" type="submit">提交答案</button>
+          <button class="btn btn-primary" type="button" id="submitPart1Btn">提交答案</button>
           <button class="btn btn-secondary" type="button" id="restartBtn">重新开始</button>
         </div>
       </form>
@@ -441,7 +441,7 @@
         <div class="ending-grid" id="endingList"></div>
         <div class="score-box" id="part2Score" aria-live="polite"></div>
         <div class="actions">
-          <button class="btn btn-primary" type="submit">提交规则</button>
+          <button class="btn btn-primary" type="button" id="submitPart2Btn">提交规则</button>
           <button class="btn btn-secondary" type="button" id="restartBtn2">重新开始</button>
         </div>
       </form>
@@ -492,12 +492,14 @@
 
     const part1List = document.querySelector("#part1List");
     const part1Form = document.querySelector("#part1Form");
+    const submitPart1Btn = document.querySelector("#submitPart1Btn");
     const part1Score = document.querySelector("#part1Score");
     const part1Notice = document.querySelector("#part1Notice");
     const part2Section = document.querySelector("#part2Section");
     const ruleList = document.querySelector("#ruleList");
     const endingList = document.querySelector("#endingList");
     const part2Form = document.querySelector("#part2Form");
+    const submitPart2Btn = document.querySelector("#submitPart2Btn");
     const part2Score = document.querySelector("#part2Score");
     const completeRule = document.querySelector("#completeRule");
     const restartButtons = [document.querySelector("#restartBtn"), document.querySelector("#restartBtn2")];
@@ -514,6 +516,30 @@
 
     function resultText(isCorrect, answer) {
       return isCorrect ? "✓ Corretto" : `✗ Risposta corretta: ${answer}`;
+    }
+
+    function preventFormSubmit(event) {
+      event.preventDefault();
+    }
+
+    function handleTextInputEnter(event, inputs) {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        const currentIndex = inputs.indexOf(event.currentTarget);
+        const nextInput = inputs[currentIndex + 1];
+        if (nextInput) {
+          nextInput.focus();
+        } else if (event.currentTarget.blur) {
+          event.currentTarget.blur();
+        }
+      }
+    }
+
+    function bindEnterNavigation(form) {
+      const inputs = [...form.querySelectorAll('input[type="text"]')];
+      inputs.forEach((input) => {
+        input.addEventListener("keydown", (event) => handleTextInputEnter(event, inputs));
+      });
     }
 
     function renderPartOne() {
@@ -637,8 +663,12 @@
 
     renderPartOne();
     renderPartTwo();
-    part1Form.addEventListener("submit", gradePartOne);
-    part2Form.addEventListener("submit", gradePartTwo);
+    bindEnterNavigation(part1Form);
+    bindEnterNavigation(part2Form);
+    part1Form.addEventListener("submit", preventFormSubmit);
+    part2Form.addEventListener("submit", preventFormSubmit);
+    submitPart1Btn.addEventListener("click", gradePartOne);
+    submitPart2Btn.addEventListener("click", gradePartTwo);
     restartButtons.forEach((button) => button.addEventListener("click", restart));
   </script>
 </body>
