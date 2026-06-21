@@ -255,6 +255,38 @@
       display: block;
     }
 
+    .notice {
+      display: none;
+      margin-top: 10px;
+      border-radius: 12px;
+      padding: 13px;
+      font-weight: 750;
+    }
+
+    .notice.show {
+      display: block;
+    }
+
+    .notice.retry {
+      background: #fff7ed;
+      border: 1px solid #fed7aa;
+      color: #9a3412;
+    }
+
+    .notice.success {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      color: var(--green);
+    }
+
+    .notice p {
+      margin: 0;
+    }
+
+    .notice p + p {
+      margin-top: 6px;
+    }
+
     .rule-card {
       border: 1px solid var(--line);
       border-radius: 12px;
@@ -390,6 +422,7 @@
       <form id="part1Form" novalidate>
         <div class="question-list" id="part1List"></div>
         <div class="score-box" id="part1Score" aria-live="polite"></div>
+        <div class="notice" id="part1Notice" aria-live="polite"></div>
         <div class="actions">
           <button class="btn btn-primary" type="submit">提交答案</button>
           <button class="btn btn-secondary" type="button" id="restartBtn">重新开始</button>
@@ -460,6 +493,7 @@
     const part1List = document.querySelector("#part1List");
     const part1Form = document.querySelector("#part1Form");
     const part1Score = document.querySelector("#part1Score");
+    const part1Notice = document.querySelector("#part1Notice");
     const part2Section = document.querySelector("#part2Section");
     const ruleList = document.querySelector("#ruleList");
     const endingList = document.querySelector("#endingList");
@@ -542,8 +576,17 @@
 
       part1Score.textContent = `${score}/16`;
       part1Score.classList.add("show");
-      part2Section.hidden = false;
-      part2Section.scrollIntoView({ behavior: "smooth", block: "start" });
+
+      if (score === partOneQuestions.length) {
+        part1Notice.innerHTML = "<p>Perfetto! Hai risposto correttamente a tutte le domande.</p>";
+        part1Notice.className = "notice show success";
+        part2Section.hidden = false;
+        part2Section.scrollIntoView({ behavior: "smooth", block: "start" });
+      } else {
+        part1Notice.innerHTML = "<p>你还没有全部答对。请根据正确答案修改后，再次提交。全部答对后，才能进入 Parte 2。</p><p>Non hai ancora risposto correttamente a tutte le domande. Correggi gli errori e riprova. Potrai completare la regola solo dopo aver ottenuto 16/16.</p>";
+        part1Notice.className = "notice show retry";
+        part2Section.hidden = true;
+      }
     }
 
     function gradePartTwo(event) {
@@ -583,6 +626,8 @@
       });
       part1Score.textContent = "";
       part1Score.classList.remove("show");
+      part1Notice.innerHTML = "";
+      part1Notice.className = "notice";
       part2Score.textContent = "";
       part2Score.classList.remove("show");
       completeRule.classList.remove("show");
